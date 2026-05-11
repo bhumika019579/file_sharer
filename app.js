@@ -6,7 +6,7 @@ const {Server}=require("socket.io");
 const app=express();
 const server=http.createServer(app);
 const io=new Server(server);
-const PORT=8001;
+const PORT=process.env.PORT || 8001;
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"));
 app.use(express.urlencoded({extended:false}));
