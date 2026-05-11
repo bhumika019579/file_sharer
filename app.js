@@ -16,5 +16,4 @@ const chatroutes=require("./routes/chatroutes");
 app.use('/',chatroutes);
 const sockethandler=require("./socket/index");
 sockethandler(io);
-
 server.listen(PORT,()=> console.log(`server has started at PORT:8001`));
