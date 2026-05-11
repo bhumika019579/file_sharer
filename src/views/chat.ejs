@@ -312,7 +312,7 @@ Socket.on("user-joined-name", (Data) => {
     addUserToSidebar(Data.username);
 });
         function copyRoomLink() {
-            navigator.clipboard.writeText(`localhost:8001/chat/${roomId}`);
+            navigator.clipboard.writeText(`file-sharer-ye4n.onrender.com/chat/${roomId}`);
             const toast = document.getElementById("toast");
             toast.style.display = "block";
             setTimeout(() => toast.style.display = "none", 2000);
