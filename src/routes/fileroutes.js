@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
-const {upload}=require("../config/cloudinary");
-const {uploadfile,getfiles,deletefile}=require("../controllers/filecontroller");
+const {upload}=require("../config/cloudinary.js");
+const {uploadfile,getfiles,deletefile}=require("../controllers/filecontroller.js");
 router.get("/",getfiles);
 router.post("/upload",(req,res,next)=>{
     upload.single('profileImage')(req,res,(err)=>{
