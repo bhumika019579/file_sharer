@@ -1,6 +1,6 @@
 const express=require("express");
 const router=express.Router();
-const {upload}=require("../src/config/cloudinary");
+const {upload}=require("../config/cloudinary");
 const {uploadfile,getfiles,deletefile}=require("../controllers/filecontroller");
 router.get("/",getfiles);
 router.post("/upload",(req,res,next)=>{
