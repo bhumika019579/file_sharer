@@ -8,7 +8,7 @@ const server=http.createServer(app);
 const io=new Server(server);
 const PORT=process.env.PORT || 8001;
 app.set("view engine","ejs");
-app.set("views",path.resolve("./views"));
+app.set("views",path.resolve("./src/views"));
 app.use(express.urlencoded({extended:false}));
 const fileroutes=require("./routes/fileroutes");
 app.use('/',fileroutes);
