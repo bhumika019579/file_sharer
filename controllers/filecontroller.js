@@ -23,7 +23,7 @@ return res.redirect('/');
 const getfiles= async(req,res)=>{
     try{
     const files = await prisma.file.findMany(); //used to fetch data from db
-    return res.render("homepage", { files });  
+    return res.render("index", { files });  
     } catch(error){
         console.log("ERROR:",error);
         return res.status(500).send(error.message);
