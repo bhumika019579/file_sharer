@@ -10,7 +10,7 @@ api_secret:process.env.api_secret,
 const storage=new CloudinaryStorage({
  cloudinary:cloudinary,
    params: async (req, file) => {
-     console.log("FILE MIMETYPE:", file.mimetype); // ✅ check
+     console.log("FILE MIMETYPE:", file.mimetype);
         
         let resource_type = "auto";
         let format = undefined;
