@@ -18,6 +18,7 @@ const storage=new CloudinaryStorage({
         if (file.mimetype === "application/pdf") {
             resource_type = "image";
             format = "pdf";
+            access_mode: "public";
         } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
             resource_type = "raw";
             format = "docx";
