@@ -251,9 +251,9 @@
             <% } else { %>📎<% } %>
             </div>
             <div class="file-info">
-        <% if(file.fileType === "application/pdf") { %>
-            <a href="https://docs.google.com/viewer?url=<%= file.url %>" target="_blank">
-                 <%= file.fileName %>
+        <%if(file.fileType === "application/pdf") { %>
+            <a href="<%= file.url %>" target="_blank">
+                 <%= file.fileName %> 
             </a>
         <% } else { %>
             <a href="<%= file.url %>" target="_blank">
