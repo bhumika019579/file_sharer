@@ -18,7 +18,7 @@ const storage=new CloudinaryStorage({
         if (file.mimetype === "application/pdf") {
             resource_type = "raw";
             format = "pdf";
-            access_mode: "public";
+            
         } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
             resource_type = "raw";
             format = "docx";
@@ -29,7 +29,8 @@ const storage=new CloudinaryStorage({
         return {
             folder: "my uploads",
             resource_type: resource_type,
-            format: format
+            format: format,
+            access_mode: "public"
         };
     }
 });
