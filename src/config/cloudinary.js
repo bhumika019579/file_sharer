@@ -16,7 +16,7 @@ const storage=new CloudinaryStorage({
         let format = undefined;
 
         if (file.mimetype === "application/pdf") {
-            resource_type = "raw";
+            resource_type = "image";
             format = "pdf";
             
         } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
