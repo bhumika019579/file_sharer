@@ -10,6 +10,9 @@ const PORT=process.env.PORT || 8001;
 app.set("view engine","ejs");
 app.set("views",path.resolve("./src/views"));
 app.use(express.urlencoded({extended:false}));
+app.get("/", (req, res) => {
+    res.render("homepage"); 
+});
 const fileroutes=require("./routes/fileroutes");
 app.use('/',fileroutes);
 const chatroutes=require("./routes/chatroutes");

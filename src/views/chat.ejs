@@ -271,10 +271,7 @@
 
     <div class="main">
         <div class="sidebar">
-            <div class="sidebar-section">
-                <div class="sidebar-title">Room ID</div>
-                <div class="room-id-box"><%=roomId%></div>
-            </div>
+           
             <div class="sidebar-section">
                 <div class="sidebar-title">Your Name</div>
                 <input type="text" id="username" class="username-input" placeholder="Enter your name">
@@ -295,35 +292,29 @@
         </div>
     </div>
        
-     <div class="toast" id="toast">✅ Room link copied!</div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const Socket=io();
-        const roomId="<%=roomId%>";
-        Socket.emit("Join_Room",roomId);
+        const roomKey="<%=roomKey%>";
+        Socket.emit("Join_Room",roomKey);
      document.getElementById("username").addEventListener("blur", () => {
     const username = document.getElementById("username").value;
     if(username) {
-        Socket.emit("user-joined-name", { roomId, username });
+        Socket.emit("user-joined-name", { roomKey, username });
     }
 });
 
 Socket.on("user-joined-name", (Data) => {
     addUserToSidebar(Data.username);
 });
-        function copyRoomLink() {
-            navigator.clipboard.writeText(`file-sharer-ye4n.onrender.com/chat/${roomId}`);
-            const toast = document.getElementById("toast");
-            toast.style.display = "block";
-            setTimeout(() => toast.style.display = "none", 2000);
-        }
+       
         function Send_Message(){
             const message=document.getElementById("messageInput").value;
             const username=document.getElementById("username").value;
             console.log("Message:", message);
     console.log("Starts with http:", message.startsWith("http"));
             Socket.emit("Send_Message",{
-                roomId:roomId,
+                roomKey:roomKey,
                 sender:username,
                 message:message
             });
@@ -344,7 +335,10 @@ Socket.on("user-joined-name", (Data) => {
         }
         Socket.on("receive_message",(Data)=>{
             const messages=document.getElementById("messages");
+            const currentUsername = document.getElementById("username").value;
+            const isSent = (Data.sender === currentUsername);
             const isURL = Data.message.startsWith("http");
+            let content="";
             if(isURL){
                 const googleDocsFiles=[".pdf", ".docx"];
                 const videoFiles = [".mp4", ".mov", ".avi"];
@@ -352,23 +346,20 @@ Socket.on("user-joined-name", (Data) => {
                 const isGoogleDocs = googleDocsFiles.some(ext => Data.message.endsWith(ext));
                 const isVideo = videoFiles.some(ext => Data.message.endsWith(ext));
                 const isAudio = audioFiles.some(ext => Data.message.endsWith(ext));
-                let content="";
                 if(isGoogleDocs){
                     content = `<a href="https://docs.google.com/viewer?url=${Data.message}" target="_blank">${Data.message}</a>`;
                 }
                 else if (isVideo){
-                   content = `<a href="${Data.message}" target="_blank">${Data.message}</a>`;
+                   content = `<video src="${Data.message}" controls></video>`;
                 }
                 else if (isAudio){
-                   content = `<a href="${Data.message}" target="_blank">${Data.message}</a>`;
+                   content = `<audio src="${Data.message}" controls></audio>`;
                 }else {
                     content = `<a href="${Data.message}" target="_blank">${Data.message}</a>`;
                 }
-                messages.innerHTML += `<p><b>${Data.sender}:</b> ${content}</p>`;
-            }else{
-                messages.innerHTML += `<p><b>${Data.sender}:</b> ${Data.message}</p>`;
-
-                }   
+                } else{
+                   content=Data.message;
+                }  
                  addUserToSidebar(Data.sender);
 
             messages.innerHTML += `

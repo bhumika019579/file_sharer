@@ -5,15 +5,19 @@ const uploadfile=async(req,res)=>{
 const fileURL=req.file.path;
 const fileName=req.file.originalname;
 const fileType=req.file.mimetype;
+const roomKey=req.body.roomKey;
+const sender = req.body.sender || "Anonymous";
 await prisma.file.create({
     data:{
         url:fileURL,
         fileName:fileName,
         fileType:fileType,
+        roomKey:roomKey,
+        sender:sender,
     }
 });
 console.log("URL:",fileURL);
-return res.redirect('/');
+return res.redirect(`/room/${roomKey}`);
     }catch(error){
         console.log("ERROR:",error);
         return res.status(500).send(error.message);
@@ -22,8 +26,11 @@ return res.redirect('/');
 };
 const getfiles= async(req,res)=>{
     try{
-    const files = await prisma.file.findMany(); //used to fetch data from db
-    return res.render("homepage", { files });  
+        const roomKey=req.params.key.toLowerCase().trim();
+    const files = await prisma.file.findMany({
+        where:{roomKey:roomKey}
+    }); //used to fetch data from db
+    return res.render("room", { files,roomKey });  
     } catch(error){
         console.log("ERROR:",error);
         return res.status(500).send(error.message);

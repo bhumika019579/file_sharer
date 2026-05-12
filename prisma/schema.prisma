@@ -19,4 +19,6 @@ model File {
   fileName  String   
   fileType  String   
   createdAt DateTime @default(now())
+  roomKey  String
+  sender    String
 }
