@@ -101,12 +101,28 @@
 
         <form action="/room" method="get">
             <div class="key-row">
-                <input class="key-input" type="text" name="key" placeholder="enter your secret key..." required autocomplete="off" spellcheck="false">
-                <button type="submit" class="throw-btn">Throw →</button>
+                <input class="key-input"id="keyInput" type="text" name="key" placeholder="enter your secret key..." required autocomplete="off" spellcheck="false">
+                <button type="button" onclick="enterRoom()" class="throw-btn">Throw →</button>
             </div>
         </form>
 
         <div class="no-login"><span>🔒</span> no login required</div>
     </div>
+    <script>
+        function enterRoom(){
+            const key=document.getElementById('keyInput').value.trim();
+            if(key){
+                window.location.href=`/room/${encodeURIComponent(key)}`;
+
+            }
+            else{
+                alert("please enter a key");
+            }
+            
+        }
+        document.getElementById('keyInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') enterRoom();
+    });
+    </script>
 </body>
 </html>

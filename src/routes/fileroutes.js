@@ -4,7 +4,7 @@ const path = require('path');
 const cloudinaryPath = path.join(__dirname, '..', 'config', 'cloudinary.js');
 const {upload}=require(cloudinaryPath);
 const {uploadfile,getfiles,deletefile}=require("../controllers/filecontroller.js");
-router.get("/room/:Key",getfiles);
+router.get("/room/:key",getfiles);
 router.post("/upload",(req,res,next)=>{
     upload.single('profileImage')(req,res,(err)=>{
         if(err){
