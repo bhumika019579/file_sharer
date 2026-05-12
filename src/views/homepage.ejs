@@ -252,7 +252,7 @@
             </div>
             <div class="file-info">
         <%if(file.fileType === "application/pdf") { %>
-            <a href="https://drive.google.com/viewerng/viewer?embedded=true&url=<%= encodeURIComponent(file.url) %>" target="_blank" >
+            <a href="https://drive.google.com/viewerng/viewer?embedded=true&url=<%=file.url %>" target="_blank" >
                  <%= file.fileName %> 
             </a>
         <% } else { %>
