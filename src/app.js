@@ -10,6 +10,7 @@ const PORT=process.env.PORT || 8001;
 app.set("view engine","ejs");
 app.set("views",path.resolve("./src/views"));
 app.use(express.urlencoded({extended:false}));
+app.use('/assets', express.static(path.resolve('./assets')));
 app.get("/", (req, res) => {
     res.render("homepage"); 
 });
